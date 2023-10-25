@@ -1,4 +1,6 @@
 const display = document.querySelector('.calculatorInput');
+const operatorInp = document.querySelector('.operatorInp');
+const firstInp = document.querySelector('.firstCountInp')
 const keys = document.querySelector('.calculatorKeys');
 
 let displayValue = '0';
@@ -7,6 +9,9 @@ let operator = null;
 let waitingForSecondValue = false;
 
 updateDisplay();
+
+
+
 
 function updateDisplay() {
     display.value = displayValue;
@@ -18,15 +23,23 @@ keys.addEventListener('click', function(e) {
     if (!element.matches('button')) return;
 
     if(element.classList.contains('operator')) {
-        // console.log('operator', element.value);
         handleOperator(element.value);
+        operatorInp.value = element.value
+        firstInp.value = firstValue
+
         updateDisplay();
         return;
     }
 
     if(element.classList.contains('decimal')) {
+  
         inputDecimal();
         updateDisplay();
+        return;
+    }
+
+    if(element.classList.contains('equal-sign')) {
+        firstValue= null
         return;
     }
 
@@ -54,13 +67,15 @@ function handleOperator(nextOperator) {
         const result = calculate(firstValue, value, operator);
 
         displayValue = `${parseFloat(result.toFixed(7))}`;
+
         firstValue = result;
+
     }
 
     waitingForSecondValue = true;
     operator = nextOperator;
 
-    console.log(displayValue, firstValue, operator, waitingForSecondValue);
+   
 }
 
 function calculate(first, second, operator) {
@@ -96,5 +111,9 @@ function inputDecimal() {
 function clear() {
     displayValue = '0';
 }
+
+
+
+
 
 
