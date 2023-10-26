@@ -36,12 +36,13 @@
   justify-content: flex-end;
 }
 .mainContent .calculator .firstCount input {
-  width: 40%;
+  width: 20%;
   height: 50px;
   background-color: transparent;
   border: none;
   font-size: 25px;
   color: #fff;
+  outline: none;
 }
 .mainContent .calculator .inputs {
   width: 100%;

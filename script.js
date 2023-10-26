@@ -2,19 +2,18 @@ const display = document.querySelector('.calculatorInput');
 const operatorInp = document.querySelector('.operatorInp');
 const firstInp = document.querySelector('.firstCountInp')
 const keys = document.querySelector('.calculatorKeys');
-
 let displayValue = '0';
 let firstValue = null;
 let operator = null;
 let waitingForSecondValue = false;
 
-updateDisplay();
 
 
 
 
 function updateDisplay() {
     display.value = displayValue;
+    firstInp.value = firstValue;
 }
 
 keys.addEventListener('click', function(e) {
@@ -24,8 +23,19 @@ keys.addEventListener('click', function(e) {
 
     if(element.classList.contains('operator')) {
         handleOperator(element.value);
-        operatorInp.value = element.value
-        firstInp.value = firstValue
+        operatorInp.value = element.value;
+        display.value = displayValue;
+        if(operatorInp.value === '=') {
+            firstInp.value = '';
+        } else {
+            firstInp.value = firstValue;
+        }
+        return;
+    }
+
+    if(element.classList.contains('equal-sign')) {
+         firstInp.value = null;
+
 
         updateDisplay();
         return;
@@ -38,10 +48,7 @@ keys.addEventListener('click', function(e) {
         return;
     }
 
-    if(element.classList.contains('equal-sign')) {
-        firstValue= null
-        return;
-    }
+
 
     if(element.classList.contains('clear')) {
         clear();
@@ -71,11 +78,8 @@ function handleOperator(nextOperator) {
         firstValue = result;
 
     }
-
     waitingForSecondValue = true;
     operator = nextOperator;
-
-   
 }
 
 function calculate(first, second, operator) {
@@ -95,8 +99,10 @@ function inputNumber(num) {
     if(waitingForSecondValue) {
         displayValue = num;
         waitingForSecondValue = false;
+
     } else {
         displayValue = displayValue === '0'? num: displayValue + num;
+
     }
 
     console.log(displayValue, firstValue, operator, waitingForSecondValue);
@@ -111,6 +117,12 @@ function inputDecimal() {
 function clear() {
     displayValue = '0';
 }
+
+
+
+
+
+
 
 
 

@@ -32,12 +32,13 @@
       display: flex;
       justify-content: flex-end;
       input {
-        width: 40%;
+        width: 20%;
         height: 50px;
         background-color: transparent;
         border: none;
         font-size: 25px;
         color: #fff;
+        outline: none;
       }
     }
     .inputs {
